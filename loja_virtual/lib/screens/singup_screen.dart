@@ -1,35 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:loja_virtual/screens/singup_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class SingupScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Entrar'),
+        title: Text('Criar conta'),
         centerTitle: true,
-        actions: <Widget>[
-          FlatButton(
-            child: Text(
-              'CRIAR CONTA',
-              style: TextStyle(fontSize: 15.0),
-            ),
-            textColor: Colors.white,
-            onPressed: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => SingupScreen())
-              );
-            },
-          )
-        ],
+        actions: <Widget>[],
       ),
       body: Form(
         key: _formKey,
         child: ListView(
           padding: EdgeInsets.all(16.0),
           children: <Widget>[
+            TextFormField(
+              decoration: InputDecoration(hintText: 'Nome Completo'),
+              validator: (text) {
+                if (text.isEmpty)
+                  return 'Nome inválido';
+                else
+                  return null;
+              },
+              keyboardType: TextInputType.emailAddress,
+            ),
+            SizedBox(
+              height: 16.0,
+            ),
             TextFormField(
               decoration: InputDecoration(hintText: 'E-mail'),
               validator: (text) {
@@ -53,16 +52,17 @@ class LoginScreen extends StatelessWidget {
                   return null;
               },
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: FlatButton(
-                onPressed: () {},
-                child: Text(
-                  'Esqueci minha senha',
-                  textAlign: TextAlign.right,
-                ),
-                padding: EdgeInsets.zero,
-              ),
+            SizedBox(
+              height: 16.0,
+            ),
+            TextFormField(
+              decoration: InputDecoration(hintText: 'Endereço'),
+              validator: (text) {
+                if (text.isEmpty)
+                  return 'Endereço inválido';
+                else
+                  return null;
+              },
             ),
             SizedBox(
               height: 16.0,
@@ -75,9 +75,7 @@ class LoginScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 18.0),
                 ),
                 textColor: Colors.white,
-                color: Theme
-                    .of(context)
-                    .primaryColor,
+                color: Theme.of(context).primaryColor,
                 onPressed: () {
                   if (_formKey.currentState.validate()) {}
                 },
