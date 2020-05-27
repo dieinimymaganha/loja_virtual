@@ -10,7 +10,6 @@ class UserModel extends Model {
 
   bool isLoading = false;
 
-
   @override
   void addListener(VoidCallback listener) {
     super.addListener(listener);
@@ -49,7 +48,9 @@ class UserModel extends Model {
       @required VoidCallback onFail}) async {
     isLoading = true;
     notifyListeners();
-    _auth.signInWithEmailAndPassword(email: email, password: pass).then((user) async {
+    _auth
+        .signInWithEmailAndPassword(email: email, password: pass)
+        .then((user) async {
       firebaseUser = user;
       await _loadCurrentUser();
       onSucess();
@@ -62,7 +63,9 @@ class UserModel extends Model {
     });
   }
 
-  void recoverPass() {}
+  void recoverPass(String email) {
+    _auth.sendPasswordResetEmail(email: email);
+  }
 
   bool isLoggedIn() {
     return firebaseUser != null;
