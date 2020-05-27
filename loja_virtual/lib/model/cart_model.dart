@@ -9,8 +9,12 @@ class CartModel extends Model {
   UserModel user;
   List<CartProduct> products = [];
 
-  CartModel(this.user){
-    if(user.isLoggedIn() ) _loadCartItems();
+  String couponCode;
+
+  int discountPercentage = 0;
+
+  CartModel(this.user) {
+    if (user.isLoggedIn()) _loadCartItems();
   }
 
   bool isLoading = false;
@@ -71,7 +75,13 @@ class CartModel extends Model {
         .collection('cart')
         .getDocuments();
 
-    products = query.documents.map((doc) => CartProduct.fromDocument(doc)).toList();
+    products =
+        query.documents.map((doc) => CartProduct.fromDocument(doc)).toList();
     notifyListeners();
+  }
+
+  void setCoupon(String couponCode, int discountPercentage) {
+    this.couponCode = couponCode;
+    this.discountPercentage = discountPercentage;
   }
 }
