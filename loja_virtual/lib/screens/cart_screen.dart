@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/model/cart_model.dart';
+import 'package:loja_virtual/screens/order_screen.dart';
 import 'package:loja_virtual/tiles/cart_tile.dart';
 import 'package:loja_virtual/widgets/cart_price.dart';
 import 'package:loja_virtual/widgets/discount_card.dart';
@@ -83,7 +84,6 @@ class CartScreen extends StatelessWidget {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
-
           );
         } else {
           return ListView(
@@ -97,13 +97,13 @@ class CartScreen extends StatelessWidget {
               ShipCard(),
               CartPrice(() async {
                 String orderId = await model.finishOrder();
-                if(orderId != null){
-                  print(orderId);
+                if (orderId != null) {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => OrderScreen(orderId)));
                 }
               }),
             ],
           );
-
         }
       }),
     );
